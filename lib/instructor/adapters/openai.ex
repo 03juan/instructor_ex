@@ -7,11 +7,7 @@ defmodule Instructor.Adapters.OpenAI do
   @impl true
   def chat_completion(params, config \\ %OpenAI.Config{}) do
     # Peel off instructor only parameters
-    # TODO: Maybe refactor this? we'll see
-    {_, params} = Keyword.pop(params, :response_model)
-    {_, params} = Keyword.pop(params, :validation_context)
-    {_, params} = Keyword.pop(params, :max_retries)
-    {_, params} = Keyword.pop(params, :mode)
+    params = Keyword.drop(params, [:response_model, :validation_context, :max_retries, :mode])
 
     OpenAI.chat_completion(params, config)
   end
